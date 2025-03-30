@@ -1,26 +1,35 @@
 #include "Nodo.h"
 
+// Implementación de la clase Nodo
+
 template <class T>
 Nodo<T>::Nodo() : dato(T()) {}
 
+// Constructor que inicializa el nodo con un valor
 template <class T>
 Nodo<T>::Nodo(const T& val) : dato(val) {}
 
+// Obtiene el dato almacenado en el nodo
 template <class T>
 T Nodo<T>::obtenerDato() { return dato; }
 
+// Fija el dato del nodo
 template <class T>
 void Nodo<T>::fijarDato(const T& val) { dato = val; }
 
+// Obtiene los hijos del nodo
 template <class T>
 vector<Nodo<T>*>& Nodo<T>::obtenerDesc() { return hijos; }
 
+// Fija los hijos del nodo
 template <class T>
 void Nodo<T>::fijarDesc(const vector<Nodo<T>*>& listaDesc) { hijos = listaDesc; }
 
+// Adiciona un nuevo hijo al nodo
 template <class T>
 void Nodo<T>::adicionarDesc(T val) { hijos.push_back(new Nodo<T>(val)); }
 
+// Elimina un hijo del nodo
 template <class T>
 bool Nodo<T>::eliminarDesc(T val) {
     for (auto it = hijos.begin(); it != hijos.end(); ++it) {
@@ -33,6 +42,7 @@ bool Nodo<T>::eliminarDesc(T val) {
     return false;
 }
 
+// Busca un hijo con un valor específico
 template <class T>
 Nodo<T>* Nodo<T>::buscarDesc(T val) {
     for (Nodo<T>* hijo : hijos) {
@@ -41,6 +51,7 @@ Nodo<T>* Nodo<T>::buscarDesc(T val) {
     return nullptr;
 }
 
+// Calcula la altura del nodo
 template <class T>
 int Nodo<T>::altura() {
     int maxAltura = -1;
@@ -50,6 +61,7 @@ int Nodo<T>::altura() {
     return maxAltura + 1;
 }
 
+// Calcula el tamaño del nodo (número de nodos descendientes)
 template <class T>
 int Nodo<T>::tamano() {
     int count = 1;
@@ -59,6 +71,7 @@ int Nodo<T>::tamano() {
     return count;
 }
 
+// Realiza un recorrido en preorden del nodo
 template <class T>
 void Nodo<T>::preOrden() {
     stack<Nodo<T>*> pila;
@@ -74,6 +87,7 @@ void Nodo<T>::preOrden() {
     cout << endl;
 }
 
+// Realiza un recorrido en postorden del nodo
 template <class T>
 void Nodo<T>::posOrden() {
     stack<Nodo<T>*> pila1, pila2;
@@ -93,6 +107,7 @@ void Nodo<T>::posOrden() {
     cout << endl;
 }
 
+// Realiza un recorrido en inorden del nodo
 template <class T>
 void Nodo<T>::inOrden() {
     if (hijos.empty()) {
@@ -105,6 +120,7 @@ void Nodo<T>::inOrden() {
     }
 }
 
+// Realiza un recorrido en nivel del nodo
 template <class T>
 void Nodo<T>::nivelOrden() {
     queue<Nodo<T>*> cola;
@@ -119,6 +135,3 @@ void Nodo<T>::nivelOrden() {
     }
     cout << endl;
 }
-
-
-
