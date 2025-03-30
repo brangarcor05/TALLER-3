@@ -1,41 +1,57 @@
 TAD ArbolBinarioG
-Datos Minimos:
-    raiz,NodoBinario, senala al primer nodo del arbol binario.
+Datos Mínimos:
+    raiz, NodoBinario*: Apuntador al primer nodo del árbol.
+
 Comportamiento:
-    ArbolBinarioG(),
-    getRaiz(),NodoBinario, retorna el nodoBinario correspondiente a la raiz del Arbol.
-    esVacio(), retorna verdadero si el arbol no posee nodo raiz.
-    datoRaiz(),?, retorna el contenido de la raiz.
-    altura(),entero, retorna la altura del arbol.
-    tamano(),entero, retorna el numero de nodos que posee el arbol.
-    insertar(valor),inserta un valor en el arbol siguiendo los parametros de orden.
-    altura(subarbol),entero, retorna la altura de un subarbol que es enviado por parametro.
-    tamano(subarbol),entero, retorna el numero de nodos que posee un subarbol que es enviado por parametro.
-    insertar(valor,subarbol,pos),ingresa un nodoBinario de valor "valor", al subarbol en la posicion indicada, i para hijo izquierdo, d para derecho.
-    eliminar(valor),busca un valor en el arbol y lo elimina.
-    buscar(valor), busca un valor en el arbol y retorna el apuntador si lo encuentra.
-    buscarE(valor), busca un valor en el arbol y retorna el apuntador a su padre.
-    preOrden(subarbol), realiza la impresion preorden de un subarbol
-    inOrden(subarbol), realiza la impresion Inorden de un subarbol
-    posOrden(subarbol), realiza la impresion posOrden de un subarbol
-    nivelOrden(subarbol), realiza la impresion NivelOrden de un subarbol
-    preOrden(), realiza la impresion preorden del arbol
-    inOrden(), realiza la impresion preorden del arbol
-    posOrden(), realiza la impresion preorden del arbol
-    nivelOrden(), realiza la impresion preorden del arbol
+    // Constructor
+    ArbolBinarioG(): Crea un árbol vacío.
+
+    // Métodos básicos
+    getRaiz() -> NodoBinario*: Retorna la raíz del árbol.
+    esVacio() -> bool: Retorna `true` si el árbol no tiene nodos.
+    datoRaiz() -> T: Retorna el valor de la raíz, o lanza una excepción si está vacío.
+
+    // Propiedades del árbol
+    altura() -> int: Retorna la altura del árbol.
+    tamano() -> int: Retorna el número total de nodos en el árbol.
+    altura(subarbol: NodoBinario*) -> int: Retorna la altura de un subárbol.
+    tamano(subarbol: NodoBinario*) -> int: Retorna el tamaño de un subárbol.
+
+    // Inserción y eliminación
+    insertar(valor: T): Inserta un valor siguiendo las reglas de BST.
+    insertar(valor: T, subarbol: NodoBinario*, pos: char): Inserta un valor en el subárbol en `pos` (`i`=izquierda, `d`=derecha).
+    eliminar(valor: T): Busca un valor en el árbol y lo elimina manteniendo las reglas del BST.
+
+    // Búsqueda
+    buscar(valor: T) -> NodoBinario*: Retorna un puntero al nodo si lo encuentra, `nullptr` si no existe.
+    buscarE(valor: T) -> NodoBinario*: Retorna un puntero al nodo padre del valor buscado, `nullptr` si no tiene padre.
+
+    // Recorridos
+    preOrden(subarbol: NodoBinario*): Imprime el recorrido preorden del subárbol.
+    inOrden(subarbol: NodoBinario*): Imprime el recorrido inorden del subárbol.
+    posOrden(subarbol: NodoBinario*): Imprime el recorrido postorden del subárbol.
+    nivelOrden(subarbol: NodoBinario*): Imprime el recorrido por niveles del subárbol.
+
+    preOrden(): Imprime el recorrido preorden del árbol.
+    inOrden(): Imprime el recorrido inorden del árbol.
+    posOrden(): Imprime el recorrido postorden del árbol.
+    nivelOrden(): Imprime el recorrido por niveles del árbol.
 
 TAD NodoBinario
-Datos Minimos:
-    dato,T, posee el contenido del nodo
-    Izq, NodoBinario,apuntador hacia el hijo izquierdo
-   Dere, NodoBinario,apuntador hacia el hijo derecho
+Datos Mínimos:
+    dato, T: Almacena el valor del nodo.
+    izq, NodoBinario*: Apuntador al hijo izquierdo.
+    der, NodoBinario*: Apuntador al hijo derecho.
+
 Comportamiento:
-    NodoBinario(dato),crea un nodo binario e inicializa su dato con el dato enviado por parametro.
-    NodoBinario()crea un nodo binario vacio.
-//Setters y Getters
-    obtenerDato()
-    fijarDato( val) 
-    obtenerHijoIzq()
-    obtenerHijoDer()
-    fijarHijoIzq(izq)
-   fijarHijoDer(der)
+    NodoBinario(dato): Crea un nodo binario con el valor proporcionado.
+    NodoBinario(): Crea un nodo binario vacío.
+
+    // Getters y Setters
+    obtenerDato() -> T
+    fijarDato(val: T)
+    obtenerHijoIzq() -> NodoBinario*
+    obtenerHijoDer() -> NodoBinario*
+    fijarHijoIzq(izq: NodoBinario*)
+    fijarHijoDer(der: NodoBinario*)
+
