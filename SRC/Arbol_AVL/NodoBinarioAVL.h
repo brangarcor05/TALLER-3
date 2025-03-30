@@ -1,15 +1,31 @@
-#ifndef NODOBINARIOAVL_H
-#define NODOBINARIOAVL_H
+#ifndef NODO_BINARIO_AVL_H
+#define NODO_BINARIO_AVL_H
 
-// Estructura que representa un nodo de un árbol AVL
-struct Nodo {
-    int clave;                // Valor clave del nodo
-    Nodo* izquierda;          // Puntero al hijo izquierdo
-    Nodo* derecha;            // Puntero al hijo derecho
-    int altura;               // Altura del nodo en el árbol
+template <typename T>
+class NodoBinarioAVL {
+private:
+    T dato;
+    NodoBinarioAVL* hijoIzq;
+    NodoBinarioAVL* hijoDer;
+    int altura;
 
-    // Constructor que inicializa el nodo con una clave y establece los hijos y la altura
-    Nodo(int k) : clave(k), izquierda(nullptr), derecha(nullptr), altura(1) {}
+public:
+    NodoBinarioAVL(T valor);
+
+    // Getters y Setters
+    T getDato();
+    void setDato(T valor);
+    
+    NodoBinarioAVL* getHijoIzq();
+    void setHijoIzq(NodoBinarioAVL* nodo);
+    
+    NodoBinarioAVL* getHijoDer();
+    void setHijoDer(NodoBinarioAVL* nodo);
+    
+    int getAltura();
+    void setAltura(int h);
 };
 
+// Implementación en el archivo .cpp
+#include "NodoBinarioAVL.cpp"
 #endif // NODOBINARIOAVL_H
