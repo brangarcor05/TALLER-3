@@ -1,46 +1,37 @@
 #include "NodoBinarioAVL.h"
 
-using namespace std;
+template <class T>
+NodoBinarioAVL<T>::NodoBinarioAVL() : hijoIzq(nullptr), hijoDer(nullptr) {}
 
 template <class T>
-NodoBinarioAVL<T>::NodoBinarioAVL(){
-	this->hijoIzq=NULL;
-	this->hijoDer=NULL;
+NodoBinarioAVL<T>::~NodoBinarioAVL() = default;
+
+template <class T>
+T& NodoBinarioAVL<T>::getDato() {
+    return dato;
 }
 
 template <class T>
-NodoBinarioAVL<T>::~NodoBinarioAVL(){
+void NodoBinarioAVL<T>::setDato(const T& val) {
+    dato = val;
 }
 
 template <class T>
-T& NodoBinarioAVL<T>::getDato(){
-	return this->dato;
+NodoBinarioAVL<T>* NodoBinarioAVL<T>::getHijoIzq() {
+    return hijoIzq;
 }
 
 template <class T>
-void NodoBinarioAVL<T>::setDato(T& val){
-	this->dato=val;
-	return;
+NodoBinarioAVL<T>* NodoBinarioAVL<T>::getHijoDer() {
+    return hijoDer;
 }
 
 template <class T>
-NodoBinarioAVL<T>* NodoBinarioAVL<T>::getHijoIzq(){
-	return this->hijoIzq;
+void NodoBinarioAVL<T>::setHijoIzq(NodoBinarioAVL<T>* izq) {
+    hijoIzq = izq;
 }
 
 template <class T>
-NodoBinarioAVL<T>* NodoBinarioAVL<T>::getHijoDer(){
-	return this->hijoDer;
-}
-
-template <class T>
-void NodoBinarioAVL<T>::setHijoIzq(NodoBinarioAVL<T>* izq){
-	this->hijoIzq=izq;
-	return;
-}
-
-template <class T>
-void NodoBinarioAVL<T>::setHijoDer(NodoBinarioAVL<T>* der){
-	this->hijoDer=der;
-	return;
+void NodoBinarioAVL<T>::setHijoDer(NodoBinarioAVL<T>* der) {
+    hijoDer = der;
 }
