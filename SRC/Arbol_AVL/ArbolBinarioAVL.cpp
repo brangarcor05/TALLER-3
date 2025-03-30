@@ -1,347 +1,134 @@
 #include "ArbolBinarioAVL.h"
+#include <iostream>
 #include <queue>
-
 using namespace std;
 
-template <class T>
-ArbolBinarioAVL<T>::ArbolBinarioAVL(){
-	this->raiz=NULL;
+template <typename T>
+ArbolBinarioAVL<T>::ArbolBinarioAVL() : raiz(nullptr) {}
+
+template <typename T>
+int ArbolBinarioAVL<T>::altura(NodoBinarioAVL<T>* nodo) {
+    return nodo ? nodo->getAltura() : 0;
 }
 
-template <class T>
-ArbolBinarioAVL<T>::~ArbolBinarioAVL(){
+template <typename T>
+int ArbolBinarioAVL<T>::factorBalance(NodoBinarioAVL<T>* nodo) {
+    return altura(nodo->getHijoIzq()) - altura(nodo->getHijoDer());
 }
 
-template <class T>
-void ArbolBinarioAVL<T>::setRaiz(NodoBinarioAVL<T>* raiz){
-	this->raiz=raiz;
-	return;
+template <typename T>
+void ArbolBinarioAVL<T>::actualizarAltura(NodoBinarioAVL<T>* nodo) {
+    nodo->setAltura(1 + max(altura(nodo->getHijoIzq()), altura(nodo->getHijoDer())));
 }
 
-template <class T>
-NodoBinarioAVL<T>* ArbolBinarioAVL<T>::getRaiz(){
-	return this->raiz;
+template <typename T>
+NodoBinarioAVL<T>* ArbolBinarioAVL<T>::giroDerecha(NodoBinarioAVL<T>* padre) {
+    NodoBinarioAVL<T>* nuevoPadre = padre->getHijoIzq();
+    padre->setHijoIzq(nuevoPadre->getHijoDer());
+    nuevoPadre->setHijoDer(padre);
+    actualizarAltura(padre);
+    actualizarAltura(nuevoPadre);
+    return nuevoPadre;
 }
 
-template <class T>
-bool ArbolBinarioAVL<T>::esVacio(){
-	if(this->raiz==NULL){
-		return true;
-	}
-	return false;
+template <typename T>
+NodoBinarioAVL<T>* ArbolBinarioAVL<T>::giroIzquierda(NodoBinarioAVL<T>* padre) {
+    NodoBinarioAVL<T>* nuevoPadre = padre->getHijoDer();
+    padre->setHijoDer(nuevoPadre->getHijoIzq());
+    nuevoPadre->setHijoIzq(padre);
+    actualizarAltura(padre);
+    actualizarAltura(nuevoPadre);
+    return nuevoPadre;
 }
 
-template <class T>
-T& ArbolBinarioAVL<T>::datoRaiz(){
-	return (this->raiz)->getDato();
+template <typename T>
+NodoBinarioAVL<T>* ArbolBinarioAVL<T>::balancear(NodoBinarioAVL<T>* nodo) {
+    actualizarAltura(nodo);
+    int balance = factorBalance(nodo);
+
+    if (balance > 1 && factorBalance(nodo->getHijoIzq()) >= 0)
+        return giroDerecha(nodo);
+
+    if (balance < -1 && factorBalance(nodo->getHijoDer()) <= 0)
+        return giroIzquierda(nodo);
+
+    if (balance > 1 && factorBalance(nodo->getHijoIzq()) < 0) {
+        nodo->setHijoIzq(giroIzquierda(nodo->getHijoIzq()));
+        return giroDerecha(nodo);
+    }
+
+    if (balance < -1 && factorBalance(nodo->getHijoDer()) > 0) {
+        nodo->setHijoDer(giroDerecha(nodo->getHijoDer()));
+        return giroIzquierda(nodo);
+    }
+
+    return nodo;
 }
 
-template <class T>
-int ArbolBinarioAVL<T>::altura(NodoBinarioAVL<T> *inicio){
-	int alturaIzq=0;
-	int alturaDer=0;
-	if(inicio==NULL){
-		return -1;
-	}
-	if(inicio->getHijoIzq()==NULL && inicio->getHijoDer()==NULL){
-		return 0;
-	}
-	if(inicio->getHijoIzq()!=NULL){
-		alturaIzq+=altura(inicio->getHijoIzq())+1;
-	}
-	if(inicio->getHijoDer()!=NULL){
-		alturaDer+=altura(inicio->getHijoDer())+1;
-	}
-	if(alturaIzq>alturaDer){
-		return (alturaIzq);
-	}else{
-		return (alturaDer);
-	}
+template <typename T>
+NodoBinarioAVL<T>* ArbolBinarioAVL<T>::insertarRecursivo(NodoBinarioAVL<T>* nodo, T valor) {
+    if (!nodo) return new NodoBinarioAVL<T>(valor);
+
+    if (valor < nodo->getDato())
+        nodo->setHijoIzq(insertarRecursivo(nodo->getHijoIzq(), valor));
+    else if (valor > nodo->getDato())
+        nodo->setHijoDer(insertarRecursivo(nodo->getHijoDer(), valor));
+    else
+        return nodo;
+
+    return balancear(nodo);
 }
 
-template <class T>
-int ArbolBinarioAVL<T>::tamano(NodoBinarioAVL<T> *inicio){
-	int nodosIzq=0;
-	int nodosDer=0;
-	if(inicio==NULL){
-		return 0;
-	}
-	if(inicio->getHijoIzq()==NULL && inicio->getHijoDer()==NULL){
-		return 1;
-	}
-	if(inicio->getHijoIzq()!=NULL){
-		nodosIzq+=tamano(inicio->getHijoIzq());
-	}
-	if(inicio->getHijoDer()!=NULL){
-		nodosDer+=tamano(inicio->getHijoDer());
-	}
-	return nodosIzq+nodosDer+1;
+template <typename T>
+void ArbolBinarioAVL<T>::insertar(T valor) {
+    raiz = insertarRecursivo(raiz, valor);
 }
 
-template <class T>
-NodoBinarioAVL<T>* ArbolBinarioAVL<T>::giroDerecha(NodoBinarioAVL<T>* &padre){
-	NodoBinarioAVL<T> *n_padre=padre->getHijoIzq();
-	padre->setHijoIzq(n_padre->getHijoDer());
-	n_padre->setHijoDer(padre);
-	return n_padre;
+// Recorrido InOrden: Izquierda - Raíz - Derecha
+template <typename T>
+void ArbolBinarioAVL<T>::inOrden(NodoBinarioAVL<T>* nodo) {
+    if (!nodo) return;
+    inOrden(nodo->getHijoIzq());
+    cout << nodo->getDato() << " ";
+    inOrden(nodo->getHijoDer());
 }
 
-template <class T>
-NodoBinarioAVL<T>* ArbolBinarioAVL<T>::giroIzquierda(NodoBinarioAVL<T>* &padre){
-	NodoBinarioAVL<T> *n_padre=padre->getHijoDer();
-	padre->setHijoDer(n_padre->getHijoIzq());
-	n_padre->setHijoIzq(padre);
-	return n_padre;
+template <typename T>
+void ArbolBinarioAVL<T>::imprimirInOrden() {
+    inOrden(raiz);
+    cout << endl;
 }
 
-template <class T>
-NodoBinarioAVL<T>* ArbolBinarioAVL<T>::giroIzquierdaDerecha(NodoBinarioAVL<T>* &padre){
-	NodoBinarioAVL<T> **primGiro=&(padre->hijoIzq);
-	padre->setHijoIzq(giroIzquierda(*primGiro));
-	return giroDerecha(padre);
+// Recorrido PreOrden: Raíz - Izquierda - Derecha
+template <typename T>
+void ArbolBinarioAVL<T>::preOrden(NodoBinarioAVL<T>* nodo) {
+    if (!nodo) return;
+    cout << nodo->getDato() << " ";
+    preOrden(nodo->getHijoIzq());
+    preOrden(nodo->getHijoDer());
 }
 
-template <class T>
-NodoBinarioAVL<T>* ArbolBinarioAVL<T>::giroDerechaIzquierda(NodoBinarioAVL<T>* &padre){
-	NodoBinarioAVL<T> **primGiro=&(padre->hijoDer);
-	padre->setHijoDer(giroDerecha(*primGiro));
-	return giroIzquierda(padre);
+template <typename T>
+void ArbolBinarioAVL<T>::imprimirPreOrden() {
+    preOrden(raiz);
+    cout << endl;
 }
 
-template <class T>
-bool ArbolBinarioAVL<T>::insertar(T& val){
-	NodoBinarioAVL<T> *nodoActual=this->raiz;
-	NodoBinarioAVL<T> *nNodo=new NodoBinarioAVL<T>();
-	NodoBinarioAVL<T> *n_padre, *n_padre2;
-	bool nodoInsertado,valorTomado=false;
-	while(!valorTomado){
-		if(nodoActual==NULL){
-			nNodo->setDato(val);
-			(this->raiz)=nNodo;
-			nodoActual=this->raiz;
-			nodoInsertado=true;
-			valorTomado=true;
-			break;
-		}
-		else if(val==nodoActual->getDato()){
-			nodoInsertado=false;
-			valorTomado=true;
-			break;
-		}
-		else if(val>nodoActual->getDato() && nodoActual->getHijoDer()==NULL){
-			nNodo->setDato(val);
-			nodoActual->setHijoDer(nNodo);
-			nodoInsertado=true;
-			valorTomado=true;
-			break;
-		}
-		else if(val<nodoActual->getDato() && nodoActual->getHijoIzq()==NULL){
-			nNodo->setDato(val);
-			nodoActual->setHijoIzq(nNodo);
-			nodoInsertado=true;
-			valorTomado=true;
-			break;
-		}
-		
-		if(val>nodoActual->getDato()){
-			nodoActual=nodoActual->getHijoDer();
-		}else{
-			nodoActual=nodoActual->getHijoIzq();
-		}
-
-	}
-	if(nodoInsertado){
-		NodoBinarioAVL<T> **nBalanceo=&(this->raiz);
-		while((*nBalanceo)!=NULL){
-			if(altura((*nBalanceo)->getHijoIzq())-altura((*nBalanceo)->getHijoDer())>1 && altura(((*nBalanceo)->getHijoIzq())->getHijoIzq())>altura(((*nBalanceo)->getHijoIzq())->getHijoDer())){
-				*nBalanceo=giroDerecha(*nBalanceo);
-			}else if(altura((*nBalanceo)->getHijoIzq())-altura((*nBalanceo)->getHijoDer())>1 && altura(((*nBalanceo)->getHijoIzq())->getHijoIzq())<altura(((*nBalanceo)->getHijoIzq())->getHijoDer())){
-				*nBalanceo=giroIzquierdaDerecha(*nBalanceo);
-			}else if(altura((*nBalanceo)->getHijoDer())-altura((*nBalanceo)->getHijoIzq())>1 && altura(((*nBalanceo)->getHijoDer())->getHijoDer())>altura(((*nBalanceo)->getHijoDer())->getHijoIzq())){
-				*nBalanceo=giroIzquierda(*nBalanceo);
-			}else if(altura((*nBalanceo)->getHijoDer())-altura((*nBalanceo)->getHijoIzq())>1 && altura(((*nBalanceo)->getHijoDer())->getHijoDer())<altura(((*nBalanceo)->getHijoDer())->getHijoIzq())){
-				*nBalanceo=giroDerechaIzquierda(*nBalanceo);
-			}
-			
-			if((*nBalanceo)->getDato()<val){
-				nBalanceo=&((*nBalanceo)->hijoDer);
-			}else{
-				nBalanceo=&((*nBalanceo)->hijoIzq);
-			}
-		} 
-	}
-	return nodoInsertado;
+// Recorrido PostOrden: Izquierda - Derecha - Raíz
+template <typename T>
+void ArbolBinarioAVL<T>::postOrden(NodoBinarioAVL<T>* nodo) {
+    if (!nodo) return;
+    postOrden(nodo->getHijoIzq());
+    postOrden(nodo->getHijoDer());
+    cout << nodo->getDato() << " ";
 }
 
-template <class T>
-bool ArbolBinarioAVL<T>::eliminar(T& val){
-	NodoBinarioAVL<T> *buscaNodo=this->raiz;
-	if(this->raiz==NULL){
-		return false;
-	}else{
-		while(buscaNodo->getHijoDer()!=NULL || buscaNodo->getHijoIzq()!=NULL || buscaNodo->getDato()==val){
-			if(buscaNodo->getDato()==val){
-				if(buscaNodo->getHijoDer()==NULL && buscaNodo->getHijoIzq()==NULL){
-					NodoBinarioAVL<T> *buscaNodo3=this->raiz;
-					if(this->raiz==buscaNodo){
-						this->raiz=NULL;
-					}
-					else{
-						while(buscaNodo3->getHijoIzq()!=NULL || buscaNodo3->getHijoDer()!=NULL){
-							if(buscaNodo3->getHijoIzq()!=NULL){
-								if((buscaNodo3->getHijoIzq())->getDato()==buscaNodo->getDato()){
-									buscaNodo3->setHijoIzq(NULL);
-									break;
-								}
-							}
-							if(buscaNodo3->getHijoDer()!=NULL){
-								if((buscaNodo3->getHijoDer())->getDato()==buscaNodo->getDato()){
-									buscaNodo3->setHijoDer(NULL);
-									break;
-								}
-							}
-							if(buscaNodo->getDato()>buscaNodo3->getDato()){
-								buscaNodo3=buscaNodo3->getHijoDer();
-							}else{
-								buscaNodo3=buscaNodo3->getHijoIzq();
-							}
-						}
-					}
-					delete(buscaNodo);
-				}else if(buscaNodo->getHijoDer()==NULL){
-					*(buscaNodo)=*(buscaNodo->getHijoIzq());
-				}else if(buscaNodo->getHijoIzq()==NULL){
-					*(buscaNodo)=*(buscaNodo->getHijoDer());
-				}else{
-					NodoBinarioAVL<T> *buscaNodo2=buscaNodo->getHijoIzq();
-					while(buscaNodo2->getHijoDer()!=NULL){
-						buscaNodo2=buscaNodo2->getHijoDer();
-					}
-					buscaNodo->setDato(buscaNodo2->getDato());
-					if(buscaNodo2->getHijoIzq()==NULL){
-						if((buscaNodo->getHijoIzq())->getHijoDer()!=NULL){
-							NodoBinarioAVL<T> *buscaNodo3=buscaNodo->getHijoIzq();
-							while((buscaNodo3->getHijoDer())->getDato()!=buscaNodo2->getDato()){
-								buscaNodo3=buscaNodo3->getHijoDer();
-							}
-							buscaNodo3->setHijoDer(NULL);
-						}else{
-							buscaNodo->setHijoIzq(NULL);
-						}
-						delete(buscaNodo2);
-					}else{
-						*(buscaNodo2)=*(buscaNodo2->getHijoIzq());
-					}
-				}
-				NodoBinarioAVL<T> **nBalanceo=&(this->raiz);
-				while((*nBalanceo)!=NULL){
-					if(altura((*nBalanceo)->getHijoIzq())-altura((*nBalanceo)->getHijoDer())>1 && altura(((*nBalanceo)->getHijoIzq())->getHijoIzq())>altura(((*nBalanceo)->getHijoIzq())->getHijoDer())){
-						*nBalanceo=giroDerecha(*nBalanceo);
-					}else if(altura((*nBalanceo)->getHijoIzq())-altura((*nBalanceo)->getHijoDer())>1 && altura(((*nBalanceo)->getHijoIzq())->getHijoIzq())<altura(((*nBalanceo)->getHijoIzq())->getHijoDer())){
-						*nBalanceo=giroIzquierdaDerecha(*nBalanceo);
-					}else if(altura((*nBalanceo)->getHijoDer())-altura((*nBalanceo)->getHijoIzq())>1 && altura(((*nBalanceo)->getHijoDer())->getHijoDer())>altura(((*nBalanceo)->getHijoDer())->getHijoIzq())){
-						*nBalanceo=giroIzquierda(*nBalanceo);
-					}else if(altura((*nBalanceo)->getHijoDer())-altura((*nBalanceo)->getHijoIzq())>1 && altura(((*nBalanceo)->getHijoDer())->getHijoDer())<altura(((*nBalanceo)->getHijoDer())->getHijoIzq())){
-						*nBalanceo=giroDerechaIzquierda(*nBalanceo);
-					}
-			
-					if((*nBalanceo)->getDato()<val){
-						nBalanceo=&((*nBalanceo)->hijoDer);
-					}else{
-						nBalanceo=&((*nBalanceo)->hijoIzq);
-					}
-				} 
-				return true;
-			}else if(val<buscaNodo->getDato() && buscaNodo->getHijoIzq()!=NULL){
-				buscaNodo=buscaNodo->getHijoIzq();
-			}else if(val>buscaNodo->getDato() && buscaNodo->getHijoDer()!=NULL){
-				buscaNodo=buscaNodo->getHijoDer();
-			}else if(val<buscaNodo->getDato() && buscaNodo->getHijoIzq()==NULL){
-				return false;
-			}else if(val>buscaNodo->getDato() && buscaNodo->getHijoDer()==NULL){
-				return false;
-			}
-		}
-	}
-	return false;
+template <typename T>
+void ArbolBinarioAVL<T>::imprimirPostOrden() {
+    postOrden(raiz);
+    cout << endl;
 }
 
-template <class T>
-bool ArbolBinarioAVL<T>::buscar(T& val){
-	NodoBinarioAVL<T> *buscaNodo=this->raiz;
-	if(this->raiz==NULL){
-		return false;
-	}else{
-		while(buscaNodo->getHijoDer()!=NULL || buscaNodo->getHijoIzq()!=NULL || buscaNodo->getDato()==val){
-			if(buscaNodo->getDato()==val){
-				return true;
-			}else{
-				if(val>buscaNodo->getDato() && buscaNodo->getHijoDer()!=NULL){
-					buscaNodo=buscaNodo->getHijoDer();
-				}else if(val<buscaNodo->getDato() && buscaNodo->getHijoIzq()!=NULL){
-					buscaNodo=buscaNodo->getHijoIzq();
-				}else if(val>buscaNodo->getDato() && buscaNodo->getHijoDer()==NULL){
-					return false;
-				}else{
-					return false;
-				}
-			}
-		}
-		return false;
-	}
-}
 
-template <class T>
-void ArbolBinarioAVL<T>::preOrden(NodoBinarioAVL<T> *inicio){
-	cout<<inicio->getDato()<<" ";
-	if(inicio->getHijoIzq()!=NULL){
-		preOrden(inicio->getHijoIzq());
-	}
-	if(inicio->getHijoDer()!=NULL){
-		preOrden(inicio->getHijoDer());
-	}
-	return;
-}
-
-template <class T>
-void ArbolBinarioAVL<T>::inOrden(NodoBinarioAVL<T> *inicio){
-	if(inicio->getHijoIzq()!=NULL){
-		inOrden(inicio->getHijoIzq());
-	}
-	cout<<inicio->getDato()<<" ";
-	if(inicio->getHijoDer()!=NULL){
-		inOrden(inicio->getHijoDer());
-	}
-	return;
-}
-
-template <class T>
-void ArbolBinarioAVL<T>::posOrden(NodoBinarioAVL<T> *inicio){
-	if(inicio->getHijoIzq()!=NULL){
-		posOrden(inicio->getHijoIzq());
-	}
-	if(inicio->getHijoDer()!=NULL){
-		posOrden(inicio->getHijoDer());
-	}
-	cout<<inicio->getDato()<<" ";
-	return;
-}
-
-template <class T>
-void ArbolBinarioAVL<T>::nivelOrden(NodoBinarioAVL<T> *inicio){
-	queue<NodoBinarioAVL<T>> colaNivel;
-	NodoBinarioAVL<T> nodo;
-	colaNivel.push(*inicio);
-	while(!colaNivel.empty()){
-		nodo=colaNivel.front();
-		colaNivel.pop();
-		cout<<nodo.getDato()<<" ";
-		if(nodo.getHijoIzq()!=NULL){
-			colaNivel.push(*nodo.getHijoIzq());
-		}
-		if(nodo.getHijoDer()!=NULL){
-			colaNivel.push(*nodo.getHijoDer());
-		}
-	}
-	return;
-}
+// Evita errores de template
+template class ArbolBinarioAVL<int>;
