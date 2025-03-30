@@ -1,6 +1,7 @@
 #include "ArbolBinario.h"
 #include "NodoBinario.h"
 
+#include <queue>
 using namespace std;
 
 
@@ -118,4 +119,67 @@ void ArbolBinario<T>::nivelOrden()
 {
     this->raiz->nivelOrden();
 }
+// Preorden: Raíz - Izq - Der
+template <typename T>
+void ArbolBinarioG<T>::preOrden() { 
+    preOrden(raiz); 
+    cout << endl; 
+}
+
+template <typename T>
+void ArbolBinarioG<T>::preOrden(NodoBinario<T>* nodo) {
+    if (!nodo) return;
+    cout << nodo->obtenerDato() << " ";
+    preOrden(nodo->obtenerHijoIzq());
+    preOrden(nodo->obtenerHijoDer());
+}
+
+// Inorden: Izq - Raíz - Der
+template <typename T>
+void ArbolBinarioG<T>::inOrden() { 
+    inOrden(raiz); 
+    cout << endl; 
+}
+
+template <typename T>
+void ArbolBinarioG<T>::inOrden(NodoBinario<T>* nodo) {
+    if (!nodo) return;
+    inOrden(nodo->obtenerHijoIzq());
+    cout << nodo->obtenerDato() << " ";
+    inOrden(nodo->obtenerHijoDer());
+}
+
+// Postorden: Izq - Der - Raíz
+template <typename T>
+void ArbolBinarioG<T>::posOrden() { 
+    posOrden(raiz); 
+    cout << endl; 
+}
+
+template <typename T>
+void ArbolBinarioG<T>::posOrden(NodoBinario<T>* nodo) {
+    if (!nodo) return;
+    posOrden(nodo->obtenerHijoIzq());
+    posOrden(nodo->obtenerHijoDer());
+    cout << nodo->obtenerDato() << " ";
+}
+
+
+
+template <typename T>
+void ArbolBinarioG<T>::nivelOrden() {
+    if (!raiz) return;
+    queue<NodoBinario<T>*> q;
+    q.push(raiz);
+    
+    while (!q.empty()) {
+        NodoBinario<T>* nodo = q.front();
+        q.pop();
+        cout << nodo->obtenerDato() << " ";
+        if (nodo->obtenerHijoIzq()) q.push(nodo->obtenerHijoIzq());
+        if (nodo->obtenerHijoDer()) q.push(nodo->obtenerHijoDer());
+    }
+    cout << endl;
+}
+
 
