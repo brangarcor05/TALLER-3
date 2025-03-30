@@ -1,35 +1,29 @@
-#ifndef __NODOBINARIO__H__
-#define __NODOBINARIO__H__
+#ifndef NODOBINARIO_H
+#define NODOBINARIO_H
 
-using namespace std;
-
-template< class T >
-class NodoBinario
-{
-  protected:
+template <typename T>
+class NodoBinario {
+private:
     T dato;
-    NodoBinario<T> *hijoIzq;
-    NodoBinario<T> *hijoDer;
+    NodoBinario<T>* izq;
+    NodoBinario<T>* der;
 
-  public:
-  	NodoBinario();
-    T& obtenerDato();
-    void fijarDato(T& val);
+public:
+    // Constructores
+    NodoBinario(T valor);
+    NodoBinario();
+
+    // Getters y Setters
+    T obtenerDato();
+    void fijarDato(T val);
+    
     NodoBinario<T>* obtenerHijoIzq();
     NodoBinario<T>* obtenerHijoDer();
-    void fijarHijoIzq(NodoBinario<T> *izq);
-    void fijarHijoDer(NodoBinario<T> *der);
-    int altura();
-    int tamano();
-    void insertar(T& val);
-    NodoBinario<T>* buscar(T& val);
-    void preOrden();
-    void inOrden();
-    void posOrden();
-    void nivelOrden();
-	NodoBinario<T>* extremo_izq();
-	NodoBinario<T>* extremo_der();
+    
+    void fijarHijoIzq(NodoBinario<T>* izq);
+    void fijarHijoDer(NodoBinario<T>* der);
 };
 
-#include "NodoBinario.hxx"
+#include "NodoBinario.cpp" // Implementación
+
 #endif
