@@ -1,0 +1,87 @@
+TAD Árbol
+Datos Mínimos:
+
+    raiz: Apuntador al nodo raíz del árbol.
+
+Comportamiento:
+
+    Arbol(): Crea un árbol con raíz nula.
+
+    Arbol(val): Crea un árbol con un nodo raíz que contiene el valor val.
+
+    ~Arbol(): Destructor del árbol.
+
+    esVacio() -> bool: Retorna true si la raíz del árbol es nula.
+
+    obtenerRaiz() -> Nodo*: Retorna un apuntador a la raíz del árbol.
+
+    fijarRaiz(nraiz: Nodo*): Asigna el nodo nraiz como la raíz del árbol.
+
+    insertarNodo(padre: T, n: T) -> bool: Busca un nodo con valor padre e inserta un nuevo nodo con valor n como hijo. Retorna true si se inserta con éxito.
+
+    eliminarNodo(n: T) -> bool: Elimina el nodo con valor n si existe en el árbol. Retorna true si se elimina correctamente.
+
+    buscarNodo(val: T) -> Nodo*: Retorna un apuntador al nodo que contiene el valor val, si existe.
+
+    altura() -> int: Retorna la altura del árbol.
+
+    tamano() -> int: Retorna el número total de nodos en el árbol.
+
+    preOrden(): Imprime el recorrido del árbol en preorden.
+
+    posOrden(): Imprime el recorrido del árbol en posorden.
+
+    inOrden(): Imprime el recorrido del árbol en inorden.
+
+    nivelOrden(): Imprime el recorrido del árbol por niveles.
+
+TAD Nodo
+Datos Mínimos:
+
+    dato: Contenido del nodo.
+
+    desc: Contenedor de apuntadores a nodos hijos.
+
+Comportamiento:
+
+    Nodo(): Crea un nodo vacío.
+
+    Nodo(val: T): Crea un nodo con el valor val.
+
+    ~Nodo(): Destructor del nodo.
+
+    obtenerDato() -> T: Retorna el dato almacenado en el nodo.
+
+    fijarDato(val: T): Reemplaza el dato del nodo con val.
+
+    obtenerDesc() -> contenedor: Retorna el conjunto de nodos descendientes.
+
+    fijarDesc(listaDesc: contenedor): Asigna listaDesc como los nodos descendientes del nodo.
+
+    adicionarDesc(nval: T): Crea un nodo con valor nval y lo añade a los descendientes.
+
+    eliminarDesc(val: T) -> bool: Elimina el nodo de valor val de los descendientes. Retorna true si se elimina correctamente.
+
+    buscarDesc(val: T) -> Nodo*: Retorna un apuntador al nodo descendiente con valor val, si existe.
+
+    limpiarLista(): Elimina todos los descendientes del nodo.
+
+    numDesc() -> int: Retorna el número de descendientes directos del nodo.
+
+    insertarNodo(padre: T, n: T) -> bool: Inserta un nodo con valor n en el subárbol cuya raíz es padre. Retorna true si se inserta correctamente.
+
+    eliminarNodo(n: T) -> bool: Elimina el nodo con valor n en el subárbol.
+
+    buscarNodo(val: T) -> Nodo*: Retorna un apuntador al nodo con valor val dentro del subárbol.
+
+    altura() -> int: Retorna la altura del subárbol con raíz en este nodo.
+
+    tamano() -> int: Retorna el número total de nodos en el subárbol con raíz en este nodo.
+
+    preOrden(): Imprime el recorrido en preorden del subárbol con raíz en este nodo.
+
+    posOrden(): Imprime el recorrido en posorden del subárbol con raíz en este nodo.
+
+    inOrden(): Imprime el recorrido en inorden del subárbol con raíz en este nodo.
+
+    nivelOrden(nivel: int, lvActual: int): Imprime los nodos del subárbol en el nivel nivel.
