@@ -2,44 +2,35 @@
 #define ARBOLBINARIOAVL_H
 
 #include "NodoBinarioAVL.h"
-#include <algorithm>
+#include <iostream>
+using namespace std;
 
-template <class T>
-class ArbolBinarioAVL {
-    protected:
-        NodoBinarioAVL<T>* raiz;
+class ArbolAVL {
+public:
+    Nodo* raiz;
     
-    public:
-        ArbolBinarioAVL();
-        ~ArbolBinarioAVL();
-        
-        void setRaiz(NodoBinarioAVL<T>* raiz);
-        NodoBinarioAVL<T>* getRaiz();
-        bool esVacio();
-        T& datoRaiz();
-        
-        int altura(NodoBinarioAVL<T>* nodo);
-        int tamano(NodoBinarioAVL<T>* nodo);
-        
-        NodoBinarioAVL<T>* balancear(NodoBinarioAVL<T>* nodo);
-        NodoBinarioAVL<T>* giroDerecha(NodoBinarioAVL<T>*& nodo);
-        NodoBinarioAVL<T>* giroIzquierda(NodoBinarioAVL<T>*& nodo);
-        NodoBinarioAVL<T>* giroIzquierdaDerecha(NodoBinarioAVL<T>*& nodo);
-        NodoBinarioAVL<T>* giroDerechaIzquierda(NodoBinarioAVL<T>*& nodo);
-        
-        NodoBinarioAVL<T>* insertarRec(NodoBinarioAVL<T>* nodo, const T& val);
-        bool insertar(T& val);
-        
-        NodoBinarioAVL<T>* eliminarRec(NodoBinarioAVL<T>* nodo, const T& val);
-        bool eliminar(T& val);
-        
-        bool buscar(T& val);
-        void preOrden(NodoBinarioAVL<T>* nodo);
-        void inOrden(NodoBinarioAVL<T>* nodo);
-        void posOrden(NodoBinarioAVL<T>* nodo);
-        void nivelOrden(NodoBinarioAVL<T>* nodo);
+    ArbolAVL();
+    void insertar(int clave);
+    void eliminar(int clave);
+    bool buscar(int clave);
+    void recorridoInorden();
+    void recorridoPreorden();
+    void recorridoPostorden();
+
+private:
+    int obtenerAltura(Nodo* nodo);
+    int obtenerBalance(Nodo* nodo);
+    Nodo* rotarDerecha(Nodo* y);
+    Nodo* rotarIzquierda(Nodo* x);
+    Nodo* insertar(Nodo* nodo, int clave);
+    Nodo* encontrarMinimo(Nodo* nodo);
+    Nodo* eliminar(Nodo* nodo, int clave);
+    Nodo* buscar(Nodo* nodo, int clave);
+    void recorridoInorden(Nodo* nodo);
+    void recorridoPreorden(Nodo* nodo);
+    void recorridoPostorden(Nodo* nodo);
 };
 
 #include "ArbolBinarioAVL.cpp"
 
-#endif // ARBOLBINARIOAVL_H
+#endif // ARBOLBINARIOAVL_Hw
