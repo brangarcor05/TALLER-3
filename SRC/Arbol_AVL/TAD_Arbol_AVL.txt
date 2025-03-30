@@ -1,73 +1,59 @@
-TAD NodoBinarioAVL
+TAD Nodo
+Datos
 
-Datos:
+    clave: Número entero que representa la clave del nodo.
 
-    dato: Elemento de tipo T almacenado en el nodo.
+    izquierda: Puntero al hijo izquierdo del nodo.
 
-    hijoIzq: Puntero al hijo izquierdo del nodo.
+    derecha: Puntero al hijo derecho del nodo.
 
-    hijoDer: Puntero al hijo derecho del nodo.
+    altura: Entero que indica la altura del nodo en el árbol.
 
-Operaciones:
+Operaciones
 
-    NodoBinarioAVL(): Constructor del nodo.
+    Nodo(int clave): Constructor que inicializa un nodo con la clave dada, sin hijos y con altura 1.
 
-    ~NodoBinarioAVL(): Destructor del nodo.
+TAD Árbol AVL
+Datos
 
-    getDato(): Retorna el dato almacenado.
+    raiz: Puntero al nodo raíz del árbol.
 
-    setDato(T& val): Asigna un valor al dato.
+Operaciones
 
-    getHijoIzq(): Retorna el puntero al hijo izquierdo.
+    ArbolAVL(): Constructor que inicializa el árbol vacío.
 
-    getHijoDer(): Retorna el puntero al hijo derecho.
+    insertar(int clave): Inserta una clave en el árbol manteniendo el balance.
 
-    setHijoIzq(NodoBinarioAVL<T>* izq): Asigna un hijo izquierdo.
+    eliminar(int clave): Elimina un nodo con la clave dada y ajusta el balance.
 
-    setHijoDer(NodoBinarioAVL<T>* der): Asigna un hijo derecho.
+    buscar(int clave) -> bool: Retorna true si la clave está en el árbol, false en caso contrario.
 
-TAD ArbolBinarioAVL
+    recorridoInorden(): Imprime los elementos en orden ascendente.
 
-Datos:
+    recorridoPreorden(): Imprime los elementos en el orden raíz-izquierda-derecha.
 
-    raiz: Puntero a la raíz del árbol.
+    recorridoPostorden(): Imprime los elementos en el orden izquierda-derecha-raíz.
 
-Operaciones:
+Operaciones privadas
 
-    ArbolBinarioAVL(): Constructor del árbol.
+    obtenerAltura(Nodo* nodo) -> int: Retorna la altura del nodo o 0 si es nullptr.
 
-    ~ArbolBinarioAVL(): Destructor del árbol.
+    obtenerBalance(Nodo* nodo) -> int: Calcula el balance del nodo (altura izquierda - altura derecha).
 
-    setRaiz(NodoBinarioAVL<T>* raiz): Asigna la raíz del árbol.
+    rotarDerecha(Nodo* y) -> Nodo*: Aplica una rotación a la derecha y devuelve la nueva raíz.
 
-    getRaiz(): Retorna la raíz del árbol.
+    rotarIzquierda(Nodo* x) -> Nodo*: Aplica una rotación a la izquierda y devuelve la nueva raíz.
 
-    esVacio(): Verifica si el árbol está vacío.
+    insertar(Nodo* nodo, int clave) -> Nodo*: Inserta un nodo y balancea el árbol recursivamente.
 
-    datoRaiz(): Retorna el dato de la raíz.
+    encontrarMinimo(Nodo* nodo) -> Nodo*: Retorna el nodo con la clave mínima en un subárbol.
 
-    altura(NodoBinarioAVL<T> *inicio): Calcula la altura del árbol desde un nodo dado.
+    eliminar(Nodo* nodo, int clave) -> Nodo*: Elimina un nodo y balancea el árbol recursivamente.
 
-    tamano(NodoBinarioAVL<T> *inicio): Calcula el número de nodos en el árbol desde un nodo dado.
+    buscar(Nodo* nodo, int clave) -> Nodo*: Busca una clave en el árbol y devuelve el nodo si lo encuentra.
 
-    giroDerecha(NodoBinarioAVL<T>*& inicio): Realiza una rotación simple a la derecha.
+    recorridoInorden(Nodo* nodo): Recorrido inorden recursivo.
 
-    giroIzquierdaDerecha(NodoBinarioAVL<T>* &padre): Realiza una rotación doble izquierda-derecha.
+    recorridoPreorden(Nodo* nodo): Recorrido preorden recursivo.
 
-    giroIzquierda(NodoBinarioAVL<T>*& inicio): Realiza una rotación simple a la izquierda.
-
-    giroDerechaIzquierda(NodoBinarioAVL<T>* &padre): Realiza una rotación doble derecha-izquierda.
-
-    insertar(T& val): Inserta un valor en el árbol.
-
-    eliminar(T& val): Elimina un valor del árbol.
-
-    buscar(T& val): Busca un valor en el árbol.
-
-    preOrden(NodoBinarioAVL<T> *inicio): Recorre el árbol en preorden.
-
-    inOrden(NodoBinarioAVL<T> *inicio): Recorre el árbol en inorden.
-
-    posOrden(NodoBinarioAVL<T> *inicio): Recorre el árbol en posorden.
-
-    nivelOrden(NodoBinarioAVL<T> *inicio): Recorre el árbol por niveles.
+    recorridoPostorden(Nodo* nodo): Recorrido postorden recursivo.
