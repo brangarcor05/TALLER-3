@@ -3,24 +3,29 @@
 #include <queue>
 using namespace std;
 
+// Constructor por defecto, inicializa la raíz como puntero nulo
 template <typename T>
 ArbolBinarioAVL<T>::ArbolBinarioAVL() : raiz(nullptr) {}
 
+// Calcula la altura de un nodo
 template <typename T>
 int ArbolBinarioAVL<T>::altura(NodoBinarioAVL<T>* nodo) {
     return nodo ? nodo->getAltura() : 0;
 }
 
+// Calcula el factor de balance de un nodo
 template <typename T>
 int ArbolBinarioAVL<T>::factorBalance(NodoBinarioAVL<T>* nodo) {
     return altura(nodo->getHijoIzq()) - altura(nodo->getHijoDer());
 }
 
+// Actualiza la altura de un nodo
 template <typename T>
 void ArbolBinarioAVL<T>::actualizarAltura(NodoBinarioAVL<T>* nodo) {
     nodo->setAltura(1 + max(altura(nodo->getHijoIzq()), altura(nodo->getHijoDer())));
 }
 
+// Realiza un giro a la derecha en el nodo dado
 template <typename T>
 NodoBinarioAVL<T>* ArbolBinarioAVL<T>::giroDerecha(NodoBinarioAVL<T>* padre) {
     NodoBinarioAVL<T>* nuevoPadre = padre->getHijoIzq();
@@ -31,6 +36,7 @@ NodoBinarioAVL<T>* ArbolBinarioAVL<T>::giroDerecha(NodoBinarioAVL<T>* padre) {
     return nuevoPadre;
 }
 
+// Realiza un giro a la izquierda en el nodo dado
 template <typename T>
 NodoBinarioAVL<T>* ArbolBinarioAVL<T>::giroIzquierda(NodoBinarioAVL<T>* padre) {
     NodoBinarioAVL<T>* nuevoPadre = padre->getHijoDer();
@@ -41,22 +47,21 @@ NodoBinarioAVL<T>* ArbolBinarioAVL<T>::giroIzquierda(NodoBinarioAVL<T>* padre) {
     return nuevoPadre;
 }
 
+// Balancea el nodo dado
 template <typename T>
 NodoBinarioAVL<T>* ArbolBinarioAVL<T>::balancear(NodoBinarioAVL<T>* nodo) {
     actualizarAltura(nodo);
     int balance = factorBalance(nodo);
 
+    // Rotaciones para balancear el árbol
     if (balance > 1 && factorBalance(nodo->getHijoIzq()) >= 0)
         return giroDerecha(nodo);
-
     if (balance < -1 && factorBalance(nodo->getHijoDer()) <= 0)
         return giroIzquierda(nodo);
-
     if (balance > 1 && factorBalance(nodo->getHijoIzq()) < 0) {
         nodo->setHijoIzq(giroIzquierda(nodo->getHijoIzq()));
         return giroDerecha(nodo);
     }
-
     if (balance < -1 && factorBalance(nodo->getHijoDer()) > 0) {
         nodo->setHijoDer(giroDerecha(nodo->getHijoDer()));
         return giroIzquierda(nodo);
@@ -65,6 +70,7 @@ NodoBinarioAVL<T>* ArbolBinarioAVL<T>::balancear(NodoBinarioAVL<T>* nodo) {
     return nodo;
 }
 
+// Inserta un valor de manera recursiva en el árbol
 template <typename T>
 NodoBinarioAVL<T>* ArbolBinarioAVL<T>::insertarRecursivo(NodoBinarioAVL<T>* nodo, T valor) {
     if (!nodo) return new NodoBinarioAVL<T>(valor);
@@ -79,56 +85,7 @@ NodoBinarioAVL<T>* ArbolBinarioAVL<T>::insertarRecursivo(NodoBinarioAVL<T>* nodo
     return balancear(nodo);
 }
 
+// Inserta un valor en el árbol
 template <typename T>
 void ArbolBinarioAVL<T>::insertar(T valor) {
-    raiz = insertarRecursivo(raiz, valor);
-}
-
-// Recorrido InOrden: Izquierda - Raíz - Derecha
-template <typename T>
-void ArbolBinarioAVL<T>::inOrden(NodoBinarioAVL<T>* nodo) {
-    if (!nodo) return;
-    inOrden(nodo->getHijoIzq());
-    cout << nodo->getDato() << " ";
-    inOrden(nodo->getHijoDer());
-}
-
-template <typename T>
-void ArbolBinarioAVL<T>::imprimirInOrden() {
-    inOrden(raiz);
-    cout << endl;
-}
-
-// Recorrido PreOrden: Raíz - Izquierda - Derecha
-template <typename T>
-void ArbolBinarioAVL<T>::preOrden(NodoBinarioAVL<T>* nodo) {
-    if (!nodo) return;
-    cout << nodo->getDato() << " ";
-    preOrden(nodo->getHijoIzq());
-    preOrden(nodo->getHijoDer());
-}
-
-template <typename T>
-void ArbolBinarioAVL<T>::imprimirPreOrden() {
-    preOrden(raiz);
-    cout << endl;
-}
-
-// Recorrido PostOrden: Izquierda - Derecha - Raíz
-template <typename T>
-void ArbolBinarioAVL<T>::postOrden(NodoBinarioAVL<T>* nodo) {
-    if (!nodo) return;
-    postOrden(nodo->getHijoIzq());
-    postOrden(nodo->getHijoDer());
-    cout << nodo->getDato() << " ";
-}
-
-template <typename T>
-void ArbolBinarioAVL<T>::imprimirPostOrden() {
-    postOrden(raiz);
-    cout << endl;
-}
-
-
-// Evita errores de template
-template class ArbolBinarioAVL<int>;
+    raiz ▋
