@@ -5,6 +5,7 @@ template <class T>
 class NodoBinarioAVL {
     private:
         T dato;
+        int altura;
         NodoBinarioAVL<T>* hijoIzq;
         NodoBinarioAVL<T>* hijoDer;
 
