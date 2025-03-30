@@ -37,6 +37,6 @@ class NodoBinarioAVL {
 };
 
 // Incluir la implementación del archivo de plantilla
-#include "NodoBinarioAVL.tpp"  // Cambio de extensión si es necesario
+#include "NodoBinarioAVL.cpp"  // Cambio de extensión si es necesario
 
 #endif // NODOBINARIOAVL_H
