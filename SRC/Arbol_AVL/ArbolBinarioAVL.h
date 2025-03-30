@@ -1,36 +1,39 @@
-#ifndef ARBOLBINARIOAVL_H
-#define ARBOLBINARIOAVL_H
+#ifndef ARBOL_BINARIO_AVL_H
+#define ARBOL_BINARIO_AVL_H
 
 #include "NodoBinarioAVL.h"
-#include <iostream>
-using namespace std;
 
-class ArbolAVL {
-public:
-    Nodo* raiz;
-    
-    ArbolAVL();
-    void insertar(int clave);
-    void eliminar(int clave);
-    bool buscar(int clave);
-    void recorridoInorden();
-    void recorridoPreorden();
-    void recorridoPostorden();
-
+template <typename T>
+class ArbolBinarioAVL {
 private:
-    int obtenerAltura(Nodo* nodo);
-    int obtenerBalance(Nodo* nodo);
-    Nodo* rotarDerecha(Nodo* y);
-    Nodo* rotarIzquierda(Nodo* x);
-    Nodo* insertar(Nodo* nodo, int clave);
-    Nodo* encontrarMinimo(Nodo* nodo);
-    Nodo* eliminar(Nodo* nodo, int clave);
-    Nodo* buscar(Nodo* nodo, int clave);
-    void recorridoInorden(Nodo* nodo);
-    void recorridoPreorden(Nodo* nodo);
-    void recorridoPostorden(Nodo* nodo);
+    NodoBinarioAVL<T>* raiz;
+
+    int altura(NodoBinarioAVL<T>* nodo);
+    int factorBalance(NodoBinarioAVL<T>* nodo);
+    void actualizarAltura(NodoBinarioAVL<T>* nodo);
+    
+    NodoBinarioAVL<T>* giroDerecha(NodoBinarioAVL<T>* padre);
+    NodoBinarioAVL<T>* giroIzquierda(NodoBinarioAVL<T>* padre);
+    NodoBinarioAVL<T>* balancear(NodoBinarioAVL<T>* nodo);
+    
+    NodoBinarioAVL<T>* insertarRecursivo(NodoBinarioAVL<T>* nodo, T valor);
+    NodoBinarioAVL<T>* eliminarRecursivo(NodoBinarioAVL<T>* nodo, T valor);
+    NodoBinarioAVL<T>* encontrarMinimo(NodoBinarioAVL<T>* nodo);
+    
+    void inOrden(NodoBinarioAVL<T>* nodo);
+    void preOrden(NodoBinarioAVL<T>* nodo);
+    void postOrden(NodoBinarioAVL<T>* nodo);
+
+public:
+    ArbolBinarioAVL();
+    
+    void insertar(T valor);
+    void eliminar(T valor);
+    void imprimirInOrden();
+    void imprimirPreOrden();
+    void imprimirPostOrden();
 };
 
 #include "ArbolBinarioAVL.cpp"
 
-#endif // ARBOLBINARIOAVL_Hw
+#endif
