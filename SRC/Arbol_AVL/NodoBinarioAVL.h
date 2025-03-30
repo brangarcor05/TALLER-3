@@ -34,6 +34,13 @@ class NodoBinarioAVL {
 
         // Método para establecer el puntero al hijo derecho
         void setHijoDer(NodoBinarioAVL<T>* der);
+
+        // Método para obtener altura del nodo
+        int getAltura();
+
+        // Método para establecer altura del nodo
+        void setAltura(int h);
+
 };
 
 // Incluir la implementación del archivo de plantilla
