@@ -1,30 +1,24 @@
-#include<iostream>
-#include "ArbolAVL.h"
-#include "NodoAVL.h"
+#include "ArbolBinarioAVL.h"
+#include <iostream>
 
-using namespace std;
+int main() {
+    ArbolBinarioAVL<int> arbol;
+    
+    arbol.insertar(10);
+    arbol.insertar(20);
+    arbol.insertar(5);
+    arbol.insertar(6);
+    arbol.insertar(15);
 
-main(int argc, char* argv[])
-{
-    ArbolAVL<int> arbolito;
-	while(true)
-	{
-		int dato;
-		char op;
-		cin>>op>>dato;
-		
-		if(op == 'A')
-			arbolito.insertar(dato);
-		else if(op == 'E')
-			arbolito.eliminar(dato);
-		else
-			break;
-	}
-	
-	cout << endl << "Inorden: " << endl;
-	arbolito.inOrden(arbolito.getRaiz());
-	cout << endl << "Preorden: " << endl;
-	arbolito.preOrden(arbolito.getRaiz());
-	cout << endl <<"Posorden: " << endl;
-	arbolito.posOrden(arbolito.getRaiz());
+    cout << "Recorrido InOrden: ";
+    arbol.imprimirInOrden();
+
+    cout << "Recorrido PreOrden: ";
+    arbol.imprimirPreOrden();
+
+    cout << "Recorrido PostOrden: ";
+    arbol.imprimirPostOrden();
+
+    return 0;
 }
+
