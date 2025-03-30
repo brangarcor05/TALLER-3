@@ -34,8 +34,6 @@ Operaciones
 
     recorridoPostorden(): Imprime los elementos en el orden izquierda-derecha-raíz.
 
-Operaciones privadas
-
     obtenerAltura(Nodo* nodo) -> int: Retorna la altura del nodo o 0 si es nullptr.
 
     obtenerBalance(Nodo* nodo) -> int: Calcula el balance del nodo (altura izquierda - altura derecha).
