@@ -35,3 +35,13 @@ template <class T>
 void NodoBinarioAVL<T>::setHijoDer(NodoBinarioAVL<T>* der) {
     hijoDer = der;
 }
+
+template <class T>
+int NodoBinarioAVL<T>::getAltura() {
+    return this->altura;
+}
+
+template <class T>
+void NodoBinarioAVL<T>::setAltura(int h) {
+    this->altura = h;
+}
