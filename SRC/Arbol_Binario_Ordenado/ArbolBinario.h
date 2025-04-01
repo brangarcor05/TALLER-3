@@ -1,33 +1,31 @@
-#ifndef ARBOL_BINARIO_H
-#define ARBOL_BINARIO_H
+#ifndef BST_H
+#define BST_H
 
-#include "NodoBinario.h"
-#include <iostream>
+#include "Nodo.h"
 
-template <typename T>
-class ArbolBinario {
-private:
-    NodoBinario<T>* raiz;
-    void preOrden(NodoBinario<T>* nodo);
-    void inOrden(NodoBinario<T>* nodo);
-    void posOrden(NodoBinario<T>* nodo);
-    void destruir(NodoBinario<T>* nodo);
-    
+class BST {
 public:
-    ArbolBinario();
-    ~ArbolBinario();
+    Nodo* raiz;
 
-    NodoBinario<T>* getRaiz();
-    bool esVacio();
-    T datoRaiz();
-    
-    void insertar(T valor);
-    bool buscar(T valor);
-    void eliminar(T valor);
+    BST();
+    ~BST();
 
-    void preOrden();
-    void inOrden();
-    void posOrden();
+    void insertar(int valor);
+    Nodo* buscar(int valor);
+    void eliminar(int valor);
+    void mostrarInorden();
+    void mostrarPreorden();
+    void mostrarPostorden();
+
+private:
+    Nodo* insertarRecursivo(Nodo* nodo, int valor);
+    Nodo* buscarRecursivo(Nodo* nodo, int valor);
+    Nodo* eliminarRecursivo(Nodo* nodo, int valor);
+    Nodo* minimoNodo(Nodo* nodo);
+    void inorden(Nodo* nodo);
+    void preorden(Nodo* nodo);
+    void postorden(Nodo* nodo);
+    void destruirRecursivo(Nodo* nodo);
 };
 
 #endif
