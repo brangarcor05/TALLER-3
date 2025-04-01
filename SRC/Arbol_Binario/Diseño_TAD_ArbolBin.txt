@@ -1,57 +1,32 @@
-TAD ArbolBinarioG
-Datos Mínimos:
-    raiz, NodoBinario*: Apuntador al primer nodo del árbol.
+TAD ArbolBinario
+Datos Minimos:
+    T: Tipo de dato almacenado en los nodos del árbol.
+    NodoBinario: Estructura que representa un nodo en el árbol con un dato y dos punteros a sus hijos.
+    ArbolBinario: Estructura que contiene una referencia a la raíz del árbol.
 
-Comportamiento:
-    // Constructor
-    ArbolBinarioG(): Crea un árbol vacío.
+Operaciones
+ArbolBinario()	Constructor que inicializa un árbol vacío.
+~ArbolBinario()	Destructor que libera la memoria utilizada por el árbol.
+getRaiz()	    Devuelve el nodo raíz del árbol.
+esVacio()	    Retorna true si el árbol está vacío, de lo contrario false.
+datoRaiz()	    Devuelve el dato almacenado en la raíz del árbol.
+altura()	    Retorna la altura del árbol.
+tamano()	    Devuelve la cantidad total de nodos en el árbol.
+insertar(valor: T)	Inserta un nuevo nodo con el valor dado en el árbol.
+eliminar(valor: T)	Elimina un nodo con el valor dado del árbol.
+buscar(valor: T)	Busca un nodo con el valor dado y devuelve su referencia si existe.
+buscarE(valor: T)	Busca de forma iterativa
+preOrden()	    	Recorre el árbol en preorden e imprime los valores.
+inOrden()	        Recorre el árbol en inorden e imprime los valores.
+posOrden()	        Recorre el árbol en postorden e imprime los valores.
 
-    // Métodos básicos
-    getRaiz() -> NodoBinario*: Retorna la raíz del árbol.
-    esVacio() -> bool: Retorna `true` si el árbol no tiene nodos.
-    datoRaiz() -> T: Retorna el valor de la raíz, o lanza una excepción si está vacío.
-
-    // Propiedades del árbol
-    altura() -> int: Retorna la altura del árbol.
-    tamano() -> int: Retorna el número total de nodos en el árbol.
-    altura(subarbol: NodoBinario*) -> int: Retorna la altura de un subárbol.
-    tamano(subarbol: NodoBinario*) -> int: Retorna el tamaño de un subárbol.
-
-    // Inserción y eliminación
-    insertar(valor: T): Inserta un valor siguiendo las reglas de BST.
-    insertar(valor: T, subarbol: NodoBinario*, pos: char): Inserta un valor en el subárbol en `pos` (`i`=izquierda, `d`=derecha).
-    eliminar(valor: T): Busca un valor en el árbol y lo elimina manteniendo las reglas del BST.
-
-    // Búsqueda
-    buscar(valor: T) -> NodoBinario*: Retorna un puntero al nodo si lo encuentra, `nullptr` si no existe.
-    buscarE(valor: T) -> NodoBinario*: Retorna un puntero al nodo padre del valor buscado, `nullptr` si no tiene padre.
-
-    // Recorridos
-    preOrden(subarbol: NodoBinario*): Imprime el recorrido preorden del subárbol.
-    inOrden(subarbol: NodoBinario*): Imprime el recorrido inorden del subárbol.
-    posOrden(subarbol: NodoBinario*): Imprime el recorrido postorden del subárbol.
-    nivelOrden(subarbol: NodoBinario*): Imprime el recorrido por niveles del subárbol.
-
-    preOrden(): Imprime el recorrido preorden del árbol.
-    inOrden(): Imprime el recorrido inorden del árbol.
-    posOrden(): Imprime el recorrido postorden del árbol.
-    nivelOrden(): Imprime el recorrido por niveles del árbol.
-
-TAD NodoBinario
-Datos Mínimos:
+TAD NodoBinario:
+Datos Minimos:
     dato, T: Almacena el valor del nodo.
     izq, NodoBinario*: Apuntador al hijo izquierdo.
     der, NodoBinario*: Apuntador al hijo derecho.
+Comportamiento
+NodoBinario(T valor): Crea un nodo con el valor proporcionado y los punteros izquierdo y derecho establecidos como nullptr.
 
-Comportamiento:
-    NodoBinario(dato): Crea un nodo binario con el valor proporcionado.
-    NodoBinario(): Crea un nodo binario vacío.
-
-    // Getters y Setters
-    obtenerDato() -> T
-    fijarDato(val: T)
-    obtenerHijoIzq() -> NodoBinario*
-    obtenerHijoDer() -> NodoBinario*
-    fijarHijoIzq(izq: NodoBinario*)
-    fijarHijoDer(der: NodoBinario*)
+    
 
