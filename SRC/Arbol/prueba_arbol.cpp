@@ -1,4 +1,3 @@
-// Archivo: main.cpp
 #include "Arbol.h"
 #include <iostream>
 
