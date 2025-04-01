@@ -5,7 +5,7 @@ CC = g++
 CFLAGS = -Wall -Wextra -std=c++11  # Opciones de compilación: advertencias y estándar C++11
 
 # Archivos fuente del proyecto
-SRC = nodo.cpp arbol.cpp prueba_arbol.cpp  
+SRC = Nodo.cpp Arbol.cpp prueba_arbol.cpp  
 OBJ = $(SRC:.cpp=.o)  # Genera los archivos objeto reemplazando .cpp por .o
 
 # Nombre del ejecutable
