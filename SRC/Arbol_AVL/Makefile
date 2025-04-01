@@ -3,7 +3,7 @@ CC = g++
 CFLAGS = -Wall -Wextra -std=c++17  # Opciones de compilación
 
 # Archivos fuente del proyecto
-SRC = NodoBinarioAVL.cpp ArbolBinarioAVL.cpp Arbolito.cpp
+SRC = Nodo.cpp AVLTree.cpp Arbolito.cpp
 OBJ = $(SRC:.cpp=.o)  # Genera los archivos objeto reemplazando .cpp por .o
 
 # Nombre del ejecutable
