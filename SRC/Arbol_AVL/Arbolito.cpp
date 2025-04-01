@@ -1,25 +1,27 @@
-#include "ArbolBinarioAVL.h"
-#include <iostream>
+#include "AVLTree.h"
 
 int main() {
-    ArbolBinarioAVL<int> arbol;
+    AVLTree arbol;
 
-    // Inserta valores en el árbol
     arbol.insertar(10);
     arbol.insertar(20);
-    arbol.insertar(5);
-    arbol.insertar(6);
-    arbol.insertar(15);
+    arbol.insertar(30);
+    arbol.insertar(40);
+    arbol.insertar(50);
+    arbol.insertar(25);
 
-    // Imprime recorridos del árbol
-    cout << "Recorrido InOrden: ";
-    arbol.imprimirInOrden();
+    cout << "Recorrido Inorden: ";
+    arbol.inOrden();
 
-    cout << "Recorrido PreOrden: ";
-    arbol.imprimirPreOrden();
+    cout << "Recorrido Preorden: ";
+    arbol.preOrden();
 
-    cout << "Recorrido PostOrden: ";
-    arbol.imprimirPostOrden();
+    cout << "Recorrido Posorden: ";
+    arbol.posOrden();
+
+    arbol.eliminar(30);
+    cout << "Después de eliminar 30, Inorden: ";
+    arbol.inOrden();
 
     return 0;
 }
