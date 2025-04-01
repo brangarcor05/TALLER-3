@@ -1,30 +1,32 @@
-#include "ArbolBinario.h"
+#include <iostream>
+#include "BST.h"
+
+using namespace std;
 
 int main() {
-    ArbolBinario<int> arbol;
+    BST arbol;
 
-    arbol.insertar(50);
-    arbol.insertar(30);
-    arbol.insertar(70);
+    // Insertar valores
+    arbol.insertar(10);
+    arbol.insertar(5);
     arbol.insertar(20);
-    arbol.insertar(40);
-    arbol.insertar(60);
-    arbol.insertar(80);
+    arbol.insertar(3);
+    arbol.insertar(8);
+    arbol.insertar(25);
 
-    std::cout << "Preorden: ";
-    arbol.preOrden();
+    // Mostrar los recorridos
+    arbol.mostrarInorden();
+    arbol.mostrarPreorden();
+    arbol.mostrarPostorden();
 
-    std::cout << "Inorden: ";
-    arbol.inOrden();
+    // Buscar un valor
+    Nodo* resultado = arbol.buscar(8);
+    if (resultado) cout << "Nodo con valor 8 encontrado." << endl;
+    else cout << "Nodo con valor 8 no encontrado." << endl;
 
-    std::cout << "Posorden: ";
-    arbol.posOrden();
-
-    int buscarValor = 40;
-    if (arbol.buscar(buscarValor))
-        std::cout << buscarValor << " encontrado en el árbol." << std::endl;
-    else
-        std::cout << buscarValor << " no encontrado en el árbol." << std::endl;
+    // Eliminar un valor
+    arbol.eliminar(20);
+    arbol.mostrarInorden();
 
     return 0;
 }
