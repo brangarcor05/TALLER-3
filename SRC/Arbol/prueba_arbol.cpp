@@ -1,54 +1,28 @@
-#include "Arbol.h"
 #include <iostream>
-
-using namespace std;
+#include "Arbol.h"
 
 int main() {
-    // Crear un árbol con raíz 1
-    Arbol<int> arbol(1);
-    
-    // Insertar nodos
-    arbol.insertarNodo(1, 2);
-    arbol.insertarNodo(1, 3);
-    arbol.insertarNodo(2, 4);
-    arbol.insertarNodo(2, 5);
-    arbol.insertarNodo(3, 6);
-    arbol.insertarNodo(3, 7);
-    
-    // Imprimir recorridos
-    cout << "Recorrido en preorden: ";
-    arbol.obtenerRaiz()->preOrden();
-    
-    cout << "Recorrido en inorden: ";
-    arbol.obtenerRaiz()->inOrden();
-    
-    cout << "Recorrido en posorden: ";
-    arbol.obtenerRaiz()->posOrden();
-    
-    cout << "Recorrido por niveles: ";
-    arbol.nivelOrden();
-    
-    // Altura y tamaño del árbol
-    cout << "Altura del árbol: " << arbol.altura() << endl;
-    cout << "Tamaño del árbol: " << arbol.tamano() << endl;
-    
-    // Buscar nodo
-    int val = 5;
-    Nodo<int>* nodo = arbol.buscarNodo(val);
-    if (nodo) {
-        cout << "Nodo " << val << " encontrado en el árbol.\n";
-    } else {
-        cout << "Nodo " << val << " no encontrado.\n";
-    }
-    
-    // Eliminar nodo
-    cout << "Eliminando nodo 3...\n";
-    arbol.eliminarNodo(3);
-    
-    // Imprimir recorrido tras la eliminación
-    cout << "Recorrido en preorden tras eliminación: ";
-    arbol.obtenerRaiz()->preOrden();
-    
+    Arbol<int> arbol(1);  // Crear árbol con raíz 1
+    arbol.insertarNodo(1, 2);  // Agregar hijo 2
+    arbol.insertarNodo(1, 3);  // Agregar hijo 3
+    arbol.insertarNodo(2, 4);  // Agregar hijo 4
+    arbol.insertarNodo(2, 5);  // Agregar hijo 5
+
+    cout << "Preorden: ";
+    arbol.obtenerRaiz()->preOrden();  // Recorrido preorden
+    cout << endl;
+
+    cout << "Postorden: ";
+    arbol.obtenerRaiz()->posOrden();  // Recorrido postorden
+    cout << endl;
+
+    cout << "Inorden: ";
+    arbol.obtenerRaiz()->inOrden();  // Recorrido inorden
+    cout << endl;
+
+    cout << "Nivel orden: ";
+    arbol.nivelOrden();  // Recorrido por nivel
+    cout << endl;
+
     return 0;
 }
-
