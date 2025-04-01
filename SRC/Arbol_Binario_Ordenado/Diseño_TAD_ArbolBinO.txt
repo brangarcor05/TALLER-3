@@ -5,83 +5,25 @@ Datos Mínimos:
     raiz: NodoBinario → Apunta al primer nodo del árbol.
 
 Comportamiento:
+Constructor (BST()): Crea un árbol vacío, inicializando el puntero raiz a nullptr.
+Destructor (~BST()): Libera la memoria ocupada por el árbol, eliminando todos los nodos.
+insertar(int valor): Inserta un valor en el árbol. Llama a la función recursiva insertarRecursivo que encuentra el lugar adecuado para el nuevo valor.
+buscar(int valor): Busca un valor en el árbol. Llama a la función recursiva buscarRecursivo que busca el valor en el árbol y retorna un puntero al nodo si lo encuentra, o nullptr si no lo encuentra.
+eliminar(int valor): Elimina un nodo con el valor dado. Llama a la función recursiva eliminarRecursivo, que se encarga de los diferentes casos de eliminación:
+        Si el nodo a eliminar tiene un solo hijo o no tiene hijos.
+        Si el nodo tiene dos hijos, se busca el sucesor inorden y se reemplaza el valor del nodo.
+mostrarInorden(): Muestra los valores del árbol en orden ascendente usando el recorrido inorden. Llama a la función recursiva inorden para recorrer el árbol.
+mostrarPreorden(): Muestra los valores del árbol en preorden (nodo, izquierdo, derecho). Llama a la función recursiva preorden.
+mostrarPostorden(): Muestra los valores del árbol en postorden (izquierdo, derecho, nodo). Llama a la función recursiva postorden.
+ 
+TAD Nodo:
+El TAD Nodo representa un nodo de un árbol binario. Cada nodo tiene tres componentes principales:
 
-    Constructores:
+    Dato: Un valor que puede ser de cualquier tipo (en este caso, un entero).
 
-        ArbolBinario(): Crea un árbol vacío.
+    Izquierdo: Un puntero al hijo izquierdo del nodo.
 
-    Operaciones Básicas:
+    Derecho: Un puntero al hijo derecho del nodo.
 
-        getRaiz() -> NodoBinario: Retorna la raíz.
-
-        esVacio() -> bool: Retorna true si el árbol está vacío.
-
-        datoRaiz() -> T: Retorna el dato almacenado en la raíz.
-
-        altura() -> int: Retorna la altura del árbol.
-
-        tamano() -> int: Retorna el número total de nodos.
-
-    Inserción y Eliminación (ABB):
-
-        insertar(valor: T): Inserta un valor respetando la propiedad del ABB.
-
-        eliminar(valor: T): Busca un valor y lo elimina siguiendo la regla del ABB.
-
-    Búsqueda y Subárboles:
-
-        buscar(valor: T) -> bool: Retorna true si el valor está en el árbol.
-
-        altura(subarbol: NodoBinario) -> int: Retorna la altura de un subárbol.
-
-        tamano(subarbol: NodoBinario) -> int: Retorna la cantidad de nodos en un subárbol.
-
-    Recorridos (corregidos):
-
-        preOrden(): Imprime en preorden desde la raíz.
-
-        inOrden(): Imprime en inorden desde la raíz.
-
-        posOrden(): Imprime en postorden desde la raíz.
-
-        nivelOrden(): Imprime en recorrido por niveles.
-
-        preOrden(subarbol: NodoBinario): Imprime en preorden desde un subárbol dado.
-
-        inOrden(subarbol: NodoBinario): Imprime en inorden desde un subárbol dado.
-
-        posOrden(subarbol: NodoBinario): Imprime en postorden desde un subárbol dado.
-
-        nivelOrden(subarbol: NodoBinario): Imprime en recorrido por niveles desde un subárbol dado.
-
-TAD NodoBinario
-
-Datos Mínimos:
-
-    dato: T → Almacena el contenido del nodo.
-
-    izq: NodoBinario → Apunta al hijo izquierdo.
-
-    der: NodoBinario → Apunta al hijo derecho.
-
-Comportamiento:
-
-    Constructores:
-
-        NodoBinario(dato: T): Crea un nodo con un valor dado.
-
-        NodoBinario(): Crea un nodo vacío.
-
-    Setters y Getters:
-
-        obtenerDato() -> T
-
-        fijarDato(val: T)
-
-        obtenerHijoIzq() -> NodoBinario
-
-        obtenerHijoDer() -> NodoBinario
-
-        fijarHijoIzq(izq: NodoBinario)
-
-        fijarHijoDer(der: NodoBinario)
+Operaciones del TAD Nodo:
+    Constructor (Nodo(int valor)): Inicializa un nodo con el valor proporcionado y los punteros a nullptr para los hijos izquierdo y derecho.
