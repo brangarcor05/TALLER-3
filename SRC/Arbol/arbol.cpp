@@ -1,106 +1,71 @@
 #include "Arbol.h"
 
-// Constructor por defecto, inicializa la raíz como un puntero nulo
-template <class T>
+template <typename T>
 Arbol<T>::Arbol() : raiz(nullptr) {}
 
-// Constructor que inicializa el árbol con un nodo raíz con valor val
-template <class T>
+template <typename T>
 Arbol<T>::Arbol(T val) {
     raiz = new Nodo<T>(val);
 }
 
-// Verifica si el árbol es vacío (si la raíz es nula)
-template <class T>
+template <typename T>
 bool Arbol<T>::esVacio() {
     return raiz == nullptr;
 }
 
-// Obtiene la raíz del árbol
-template <class T>
+template <typename T>
 Nodo<T>* Arbol<T>::obtenerRaiz() {
     return raiz;
 }
 
-// Fija la raíz del árbol a un nuevo nodo
-template <class T>
+template <typename T>
 void Arbol<T>::fijarRaiz(Nodo<T>* nraiz) {
     raiz = nraiz;
 }
 
-// Inserta un nodo con valor n como hijo del nodo con valor padre
-template <class T>
+template <typename T>
 bool Arbol<T>::insertarNodo(T padre, T n) {
-    if (!raiz) return false; // Si la raíz es nula, no se puede insertar
-    queue<Nodo<T>*> cola;
-    cola.push(raiz);
-    while (!cola.empty()) {
-        Nodo<T>* actual = cola.front();
-        cola.pop();
-        if (actual->dato == padre) {
-            actual->adicionarDesc(n); // Agrega n como hijo del nodo actual
-            return true;
-        }
-        for (Nodo<T>* hijo : actual->hijos) {
-            cola.push(hijo);
-        }
+    Nodo<T>* nodoPadre = buscarNodo(padre);
+    if (nodoPadre) {
+        nodoPadre->adicionarDesc(n);
+        return true;
     }
-    return false; // No se encontró el nodo padre
+    return false;
 }
 
-// Elimina el nodo con valor n del árbol
-template <class T>
+template <typename T>
 bool Arbol<T>::eliminarNodo(T n) {
-    if (!raiz) return false; // Si la raíz es nula, no se puede eliminar
-    if (raiz->dato == n) {
+    if (raiz->obtenerDato() == n) {
         delete raiz;
         raiz = nullptr;
         return true;
     }
-    queue<Nodo<T>*> cola;
-    cola.push(raiz);
-    while (!cola.empty()) {
-        Nodo<T>* actual = cola.front();
-        cola.pop();
-        if (actual->eliminarDesc(n)) return true; // Elimina el nodo descendiente
-        for (Nodo<T>* hijo : actual->hijos) {
-            cola.push(hijo);
-        }
-    }
-    return false; // No se encontró el nodo a eliminar
+    return raiz->eliminarDesc(n);
 }
 
-// Busca un nodo con valor val en el árbol
-template <class T>
+template <typename T>
 Nodo<T>* Arbol<T>::buscarNodo(T val) {
-    if (!raiz) return nullptr; // Si la raíz es nula, no se puede buscar
-    queue<Nodo<T>*> cola;
-    cola.push(raiz);
-    while (!cola.empty()) {
-        Nodo<T>* actual = cola.front();
-        cola.pop();
-        if (actual->dato == val) return actual; // Nodo encontrado
-        for (Nodo<T>* hijo : actual->hijos) {
-            cola.push(hijo);
-        }
+    if (raiz->obtenerDato() == val) {
+        return raiz;
     }
-    return nullptr; // No se encontró el nodo
+    return raiz->buscarDesc(val);
 }
 
-// Calcula la altura del árbol
-template <class T>
+template <typename T>
 int Arbol<T>::altura() {
-    return raiz ? raiz->altura() : -1;
+    return raiz->altura();
 }
 
-// Calcula el tamaño del árbol (número de nodos)
-template <class T>
+template <typename T>
 int Arbol<T>::tamano() {
-    return raiz ? raiz->tamano() : 0;
+    return raiz->tamano();
 }
 
-// Realiza un recorrido en nivel del árbol
-template <class T>
+template <typename T>
 void Arbol<T>::nivelOrden() {
-    if (raiz) raiz->nivelOrden();
+    raiz->nivelOrden();
 }
+
+// Explicitar la instanciación de plantillas para tipos que se usen
+template class Arbol<int>;
+template class Arbol<float>;
