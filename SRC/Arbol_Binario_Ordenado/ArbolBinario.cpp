@@ -1,118 +1,121 @@
 #include "ArbolBinario.h"
 
-using namespace std;
+template <typename T>
+ArbolBinario<T>::ArbolBinario() : raiz(nullptr) {}
 
-ArbolBinario::ArbolBinario(){
-	this->raiz=NULL;
+template <typename T>
+ArbolBinario<T>::~ArbolBinario() {
+    destruir(raiz);
 }
 
-ArbolBinario::~ArbolBinario(){
+template <typename T>
+void ArbolBinario<T>::destruir(NodoBinario<T>* nodo) {
+    if (nodo) {
+        destruir(nodo->izq);
+        destruir(nodo->der);
+        delete nodo;
+    }
 }
 
-bool ArbolBinario::esVacio(){
-	if(this->raiz==NULL){
-		return true;
-	}
-	return false;
+template <typename T>
+NodoBinario<T>* ArbolBinario<T>::getRaiz() {
+    return raiz;
 }
 
-template <class T>
-T& ArbolBinario::datoRaiz(){
-	return (this->raiz).getDato();
+template <typename T>
+bool ArbolBinario<T>::esVacio() {
+    return raiz == nullptr;
 }
 
-template <class T>
-int ArbolBinario::altura(NodoBinario<T> *inicio){
-	int alturaIzq=0;
-	int alturaDer=0;
-	if(inicio==NULL){
-		return -1;
-	}
-	if(inicio->getHijoIzq()==NULL && inicio->getHijoDer()==NULL){
-		return 0;
-	}
-	if(inicio->getHijoIzq()!=NULL){
-		alturaIzq+=altura(inicio->gethijoIzq())+1;
-	}
-	if(inicio->getHijoDer()!=NULL){
-		alturaDer+=altura(inicio->gethijoDer())+1;
-	}
-	alturaIzq>alturaDer?return (alturaIzq):return (alturaDer);
+template <typename T>
+T ArbolBinario<T>::datoRaiz() {
+    if (raiz) return raiz->dato;
+    throw std::runtime_error("Árbol vacío");
 }
 
-template <class T>
-int ArbolBinario::tamano(NodoBinario<T> *inicio){
-	int nodosIzq=0;
-	int nodosDer=0;
-	if(inicio==NULL){
-		return 0;
-	}
-	if(inicio->getHijoIzq()==NULL && inicio->getHijoDer()==NULL){
-		return 1;
-	}
-	if(inicio->getHijoIzq()!=NULL){
-		nodosIzq+=tamano(inicio->gethijoIzq());
-	}
-	if(inicio->getHijoDer()!=NULL){
-		nodosDer+=tamano(inicio->gethijoDer());
-	}
-	return nodosIzq+nodosDer+1;
+template <typename T>
+void ArbolBinario<T>::insertar(T valor) {
+    NodoBinario<T>* nuevo = new NodoBinario<T>(valor);
+    if (!raiz) {
+        raiz = nuevo;
+        return;
+    }
+
+    NodoBinario<T>* actual = raiz;
+    NodoBinario<T>* padre = nullptr;
+
+    while (actual) {
+        padre = actual;
+        if (valor < actual->dato) {
+            actual = actual->izq;
+        } else {
+            actual = actual->der;
+        }
+    }
+
+    if (valor < padre->dato)
+        padre->izq = nuevo;
+    else
+        padre->der = nuevo;
 }
 
-bool ArbolBinario::insertar(T& val, NodoBinario<T> *nod){
+template <typename T>
+bool ArbolBinario<T>::buscar(T valor) {
+    NodoBinario<T>* actual = raiz;
+    while (actual) {
+        if (actual->dato == valor)
+            return true;
+        if (valor < actual->dato)
+            actual = actual->izq;
+        else
+            actual = actual->der;
+    }
+    return false;
+}
 
-	//crea nodo a insertar
-	NodoBinario<T> *nodito = new NodoBinario();
-	nodito->setDato(val);
+template <typename T>
+void ArbolBinario<T>::preOrden(NodoBinario<T>* nodo) {
+    if (nodo) {
+        std::cout << nodo->dato << " ";
+        preOrden(nodo->izq);
+        preOrden(nodo->der);
+    }
+}
 
-	// inserta en la raiz si no existia antes
-	if(this->raiz== NULL)
-		{
-			this->raiz=nodito;
-			return true;
-		}
-	// empieza recorrer por la izquiera si el valor es menor
-	else if(val<nod->getDato())
-	{
-		//recorre los hijos de los hijos del hijo izquerdo
-		if(nod->getHijoIzq!=NULL)
-		{
-			insertar(val,nod->getHijoIzq);
-		}
-		// cuando ya no exite un hijo izquierdo inserta
-		else
-		{
-			nod->setHijoDer(nodito);
-			return true;
-		}
-	}
-	else if(val>nod->getDato())
-	{
-		//recorre los hijos de los hijos del hijo derecho
-		if(nod->getHijoDer!=NULL)
-		{
-			insertar(val,nod->getHijoDer);
-		}
-		// cuando ya no exite un hijo izquierdo inserta
-		else
-		{
-			nod->setHijoDer(nodito);
-			return true;
-		}
-	}
-	// si nunca inserto en hijo izquierdo o derecho , es porque ya existe
-	else
-	{
-		return false;
-	}
+template <typename T>
+void ArbolBinario<T>::inOrden(NodoBinario<T>* nodo) {
+    if (nodo) {
+        inOrden(nodo->izq);
+        std::cout << nodo->dato << " ";
+        inOrden(nodo->der);
+    }
+}
+
+template <typename T>
+void ArbolBinario<T>::posOrden(NodoBinario<T>* nodo) {
+    if (nodo) {
+        posOrden(nodo->izq);
+        posOrden(nodo->der);
+        std::cout << nodo->dato << " ";
+    }
+}
+
+template <typename T>
+void ArbolBinario<T>::preOrden() {
+    preOrden(raiz);
+    std::cout << std::endl;
+}
+
+template <typename T>
+void ArbolBinario<T>::inOrden() {
+    inOrden(raiz);
+    std::cout << std::endl;
+}
+
+template <typename T>
+void ArbolBinario<T>::posOrden() {
+    posOrden(raiz);
+    std::cout << std::endl;
 }
 
 
-
-
-
-
-
-}
-
-}
