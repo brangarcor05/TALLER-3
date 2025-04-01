@@ -1,25 +1,12 @@
-#ifndef NODO_BINARIO_H
-#define NODO_BINARIO_H
-template <typename T>
-class NodoBinario {
-private:
-    T dato;
-    NodoBinario* izq;
-    NodoBinario* der;
+#ifndef NODO_H
+#define NODO_H
 
-public:
-    NodoBinario(T valor) : dato(valor), izq(nullptr), der(nullptr) {}
-    
-    T obtenerDato() { return dato; }
-    void fijarDato(T val) { dato = val; }
+struct Nodo {
+    int dato;
+    Nodo* izquierdo;
+    Nodo* derecho;
 
-    NodoBinario* obtenerHijoIzq() { return izq; }
-    NodoBinario* obtenerHijoDer() { return der; }
-
-    void fijarHijoIzq(NodoBinario* izq) { this->izq = izq; }
-    void fijarHijoDer(NodoBinario* der) { this->der = der; }
-
-    friend class ArbolBinario<T>;
+    Nodo(int valor);
 };
 
 #endif
