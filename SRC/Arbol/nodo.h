@@ -1,36 +1,32 @@
 #ifndef NODO_H
 #define NODO_H
 
-#include <iostream>
 #include <vector>
-#include <queue>
-#include <stack>
+#include <iostream>
 using namespace std;
 
-template <class T>
+template <typename T>
 class Nodo {
-public:
+private:
     T dato;
     vector<Nodo<T>*> hijos;
 
-    Nodo();
-    Nodo(const T& val);
-    T obtenerDato();
-    void fijarDato(const T& val);
-    vector<Nodo<T>*>& obtenerDesc();
-    void fijarDesc(const vector<Nodo<T>*>& listaDesc);
-    void adicionarDesc(T val);
-    bool eliminarDesc(T val);
-    Nodo<T>* buscarDesc(T val);
-    int altura();
-    int tamano();
-    void preOrden();
-    void posOrden();
-    void inOrden();
-    void nivelOrden();
+public:
+    Nodo();  // Constructor por defecto
+    Nodo(const T& val);  // Constructor con valor
+    T obtenerDato();  // Obtener dato
+    void fijarDato(const T& val);  // Establecer dato
+    vector<Nodo<T>*>& obtenerDesc();  // Obtener hijos
+    void fijarDesc(const vector<Nodo<T>*>& listaDesc);  // Establecer hijos
+    void adicionarDesc(T val);  // Agregar hijo
+    bool eliminarDesc(T val);  // Eliminar hijo
+    Nodo<T>* buscarDesc(T val);  // Buscar hijo
+    int altura();  // Calcular altura
+    int tamano();  // Calcular tamaño
+    void preOrden();  // Recorrido preorden
+    void posOrden();  // Recorrido postorden
+    void inOrden();  // Recorrido inorden
+    void nivelOrden();  // Recorrido por nivel
 };
 
-#include "Nodo.cpp"
-#endif
-
-
+#endif // NODO_H
