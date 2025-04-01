@@ -1,0 +1,89 @@
+TAD Nodo
+
+El Nodo es un elemento básico del árbol rojo-negro. Este contiene información sobre el valor de un nodo, su color, y los punteros a sus nodos hijos y su nodo padre.
+Datos del Nodo:
+
+    dato: Un valor numérico que representa el valor almacenado en el nodo (tipo int).
+
+    color: El color del nodo (tipo Color, que puede ser ROJO o NEGRO).
+
+    izquierda: Puntero al hijo izquierdo del nodo (tipo Nodo*).
+
+    derecha: Puntero al hijo derecho del nodo (tipo Nodo*).
+
+    padre: Puntero al nodo padre (tipo Nodo*).
+
+Operaciones del Nodo:
+
+    Constructor Nodo(int dato):
+
+        Crea un nodo con un valor específico, y establece los punteros a nullptr y el color por defecto como ROJO.
+
+    getDato(): Devuelve el valor almacenado en el nodo.
+
+    getColor(): Devuelve el color del nodo.
+
+    getIzquierda(): Devuelve el puntero al hijo izquierdo del nodo.
+
+    getDerecha(): Devuelve el puntero al hijo derecho del nodo.
+
+    getPadre(): Devuelve el puntero al nodo padre.
+
+TAD ÁrbolRojoNegro
+
+El Árbol Rojo-Negro es un árbol binario de búsqueda balanceado, en el cual cada nodo tiene un color asociado (rojo o negro) y debe seguir ciertas reglas para mantener el equilibrio.
+Datos del Árbol:
+
+    raiz: Puntero al nodo raíz del árbol (tipo Nodo*).
+
+Operaciones del ÁrbolRojoNegro:
+
+    Constructor ArbolRojoNegro():
+
+        Crea un árbol vacío con la raíz en nullptr.
+
+    insertar(int dato):
+
+        Inserta un nuevo nodo con el valor dato en el árbol.
+
+        Realiza las correcciones necesarias para mantener las propiedades del árbol rojo-negro (rotaciones y cambio de colores).
+
+    corregirInsercion(Nodo *k):
+
+        Asegura que el árbol siga las propiedades del árbol rojo-negro después de una inserción.
+
+        Realiza las rotaciones y cambios de color según sea necesario.
+
+    rotacionIzquierda(Nodo *x):
+
+        Realiza una rotación izquierda en el nodo x.
+
+    rotacionDerecha(Nodo *x):
+
+        Realiza una rotación derecha en el nodo x.
+
+    recorridoInorden(Nodo *nodo):
+
+        Realiza un recorrido en orden (inorden) del árbol, mostrando los nodos de izquierda a derecha.
+
+        En el recorrido inorden, se muestra primero el subárbol izquierdo, luego el nodo y después el subárbol derecho.
+
+    recorridoPreorden(Nodo *nodo):
+
+        Realiza un recorrido preorden del árbol, mostrando primero el nodo, luego el subárbol izquierdo y después el subárbol derecho.
+
+    recorridoPosorden(Nodo *nodo):
+
+        Realiza un recorrido posorden del árbol, mostrando primero los subárboles izquierdo y derecho y luego el nodo.
+
+    recorridoInordenPublico():
+
+        Llama a la función recorridoInorden() para mostrar el árbol de manera inorden de manera pública.
+
+    recorridoPreordenPublico():
+
+    Llama a la función recorridoPreorden() para mostrar el árbol de manera preorden de manera pública.
+
+    recorridoPosordenPublico():
+
+    Llama a la función recorridoPosorden() para mostrar el árbol de manera posorden de manera pública.
