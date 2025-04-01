@@ -3,45 +3,23 @@
 
 #include "Nodo.h"
 
-// Definición de la plantilla de clase Arbol
-template <class T>
+template <typename T>
 class Arbol {
+private:
+    Nodo<T>* raiz;
+
 public:
-    Nodo<T>* raiz;  // Puntero a la raíz del árbol
-
-    // Constructor por defecto
-    Arbol();
-
-    // Constructor que inicializa el árbol con un valor
-    Arbol(T val);
-
-    // Verifica si el árbol está vacío
-    bool esVacio();
-
-    // Obtiene la raíz del árbol
-    Nodo<T>* obtenerRaiz();
-
-    // Fija la raíz del árbol
-    void fijarRaiz(Nodo<T>* nraiz);
-
-    // Inserta un nodo en el árbol
-    bool insertarNodo(T padre, T n);
-
-    // Elimina un nodo del árbol
-    bool eliminarNodo(T n);
-
-    // Busca un nodo en el árbol
-    Nodo<T>* buscarNodo(T val);
-
-    // Obtiene la altura del árbol
-    int altura();
-
-    // Obtiene el tamaño del árbol
-    int tamano();
-
-    // Imprime el árbol en orden de nivel
-    void nivelOrden();
+    Arbol();  // Constructor por defecto
+    Arbol(T val);  // Constructor con valor
+    bool esVacio();  // Verificar si el árbol está vacío
+    Nodo<T>* obtenerRaiz();  // Obtener la raíz
+    void fijarRaiz(Nodo<T>* nraiz);  // Establecer la raíz
+    bool insertarNodo(T padre, T n);  // Insertar nodo
+    bool eliminarNodo(T n);  // Eliminar nodo
+    Nodo<T>* buscarNodo(T val);  // Buscar nodo
+    int altura();  // Obtener altura del árbol
+    int tamano();  // Obtener tamaño del árbol
+    void nivelOrden();  // Recorrido por nivel
 };
 
-#include "Arbol.cpp"
-#endif
+#endif // ARBOL_H
