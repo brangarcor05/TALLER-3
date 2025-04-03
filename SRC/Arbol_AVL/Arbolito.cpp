@@ -1,27 +1,38 @@
+#include <iostream>
 #include "AVLTree.h"
+
+using namespace std;
 
 int main() {
     AVLTree arbol;
 
-    arbol.insertar(10);
-    arbol.insertar(20);
-    arbol.insertar(30);
-    arbol.insertar(40);
-    arbol.insertar(50);
-    arbol.insertar(25);
+    cout << "Insertando elementos en el AVL..." << endl;
+    int valores[] = {10, 20, 30, 40, 50, 25};
+    for (int v : valores) {
+        arbol.insertar(v);
+        cout << "\nDespués de insertar " << v << ":" << endl;
+        cout << "Raíz: " << arbol.obtenerRaiz() << endl;
+        cout << "Altura del árbol: " << arbol.obtenerAltura() << endl;
+        cout << "Factor de balance de la raíz: " << arbol.obtenerBalanceRaiz() << endl;
+    }
 
-    cout << "Recorrido Inorden: ";
-    arbol.inOrden();
+    cout << "\nRecorridos después de las inserciones:" << endl;
+    cout << "InOrden: ";  arbol.inOrden();
+    cout << "PreOrden: "; arbol.preOrden();
+    cout << "PosOrden: "; arbol.posOrden();
 
-    cout << "Recorrido Preorden: ";
-    arbol.preOrden();
-
-    cout << "Recorrido Posorden: ";
-    arbol.posOrden();
-
+    cout << "\nEliminando el nodo 30..." << endl;
     arbol.eliminar(30);
-    cout << "Después de eliminar 30, Inorden: ";
-    arbol.inOrden();
+
+    cout << "\nDespués de eliminar 30:" << endl;
+    cout << "Raíz: " << arbol.obtenerRaiz() << endl;
+    cout << "Altura del árbol: " << arbol.obtenerAltura() << endl;
+    cout << "Factor de balance de la raíz: " << arbol.obtenerBalanceRaiz() << endl;
+
+    cout << "\nRecorridos después de la eliminación:" << endl;
+    cout << "InOrden: ";  arbol.inOrden();
+    cout << "PreOrden: "; arbol.preOrden();
+    cout << "PosOrden: "; arbol.posOrden();
 
     return 0;
 }
