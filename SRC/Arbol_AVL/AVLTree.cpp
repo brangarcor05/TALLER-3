@@ -13,6 +13,18 @@ int AVLTree::altura(Nodo* n) {
 int AVLTree::balance(Nodo* n) {
     return n ? altura(n->izquierda) - altura(n->derecha) : 0;
 }
+int AVLTree::obtenerAltura() {
+    return altura(raiz);
+}
+
+int AVLTree::obtenerRaiz() {
+    return raiz ? raiz->dato : -1;  // -1 indica que el árbol está vacío.
+}
+
+int AVLTree::obtenerBalanceRaiz() {
+    return balance(raiz);
+}
+
 
 Nodo* AVLTree::rotarDerecha(Nodo* y) {
     Nodo* x = y->izquierda;
