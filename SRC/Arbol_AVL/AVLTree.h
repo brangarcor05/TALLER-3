@@ -29,10 +29,14 @@ public:
     ~AVLTree();
     void insertar(int dato);
     void eliminar(int dato);
-    
+    int obtenerAltura();
+    int obtenerRaiz();
+    int obtenerBalanceRaiz();
+
     void inOrden();
     void preOrden();
     void posOrden();
 };
 
 #endif
+
